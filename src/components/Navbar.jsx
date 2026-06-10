@@ -21,11 +21,11 @@ export default function Navbar() {
     router.refresh();
   };
 
-  const navLinks = [
+const navLinks = [
     { name: "Home", path: "/", icon: <Home size={16} /> },
-    { name: "Projects", path: "/#projects", icon: <Briefcase size={16} /> },
+    { name: "Projects", path: "/projects", icon: <Briefcase size={16} /> }, // Diubah ke /projects
   ];
-
+  
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-50">
       <motion.nav 

@@ -1,80 +1,57 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Terminal } from 'lucide-react';
+import { Cpu, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/projects')
-      .then((res) => res.json())
-      .then((data) => setProjects(data));
-  }, []);
-
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 px-6 pb-12 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <main className="min-h-screen bg-slate-950 text-slate-100 pt-36 px-6 pb-12 flex items-center justify-center relative overflow-hidden">
+      {/* Background Tech Orbs */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="max-w-5xl mx-auto">
-        {/* Hero Section yang sudah bersih tanpa tombol logout lama */}
-        <div className="border-b border-slate-900/60 pb-12 mb-12">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="space-y-3"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-mono">
-              <Terminal size={12} /> Status: Authenticated as Admin
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-              Project <span className="bg-linear-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">SBO Portfolio</span>
-            </h1>
-            <p className="text-slate-400 max-w-xl text-sm md:text-base">
-              Selamat datang di dashboard tugas besar kelompok kami. Di sini terlampir hasil kerja sistem modeling dan implementasi coding kami.
-            </p>
-          </motion.div>
-        </div>
+      <div className="max-w-3xl w-full text-center z-10">
+        
+        {/* Hero Section Name with Modern Background Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative p-8 md:p-12 rounded-3xl bg-linear-to-br from-slate-900/80 to-slate-950/40 border border-slate-800/60 backdrop-blur-md shadow-2xl shadow-teal-950/20 overflow-hidden group mb-8"
+        >
+          {/* Efek garis dekorasi di dalam card */}
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-linear-to-r from-transparent via-teal-500/40 to-transparent"></div>
 
-
-        {/* Project Grid */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold tracking-wide text-slate-300">Group Showcases</h2>
+          <p className="text-xs md:text-sm font-mono tracking-widest text-teal-400 uppercase mb-3">
+            Lead Software Engineer & Network Architect
+          </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
-              <motion.div 
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative bg-slate-900/30 border border-slate-900 hover:border-slate-800/80 p-6 rounded-2xl backdrop-blur-xs transition-all duration-300"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-xs font-mono text-teal-400 bg-teal-500/5 px-2.5 py-1 rounded-md border border-teal-500/10">
-                    {project.category}
-                  </span>
-                  <ExternalLink size={16} className="text-slate-600 group-hover:text-teal-400 transition-colors" />
-                </div>
-                
-                <h3 className="text-lg font-bold text-slate-200 mb-2 group-hover:text-white transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-slate-400 mb-4">{project.desc}</p>
-                
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-900">
-                  {project.tech.map((t, idx) => (
-                    <span key={idx} className="text-xs text-slate-500 font-medium bg-slate-950 px-2 py-0.5 rounded">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+          {/* Nama JASON Mencolok */}
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white mb-4">
+            HI, I'M <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">JASON</span>
+          </h1>
 
+          <p className="text-sm md:text-base text-slate-400 max-w-xl mx-auto leading-relaxed">
+            Selamat datang di ruang pameran digital saya. Berfokus pada pemodelan sistem perangkat lunak terintegrasi, analisis protokol, dan optimalisasi topologi jaringan.
+          </p>
+        </motion.div>
+
+        {/* CTA ke halaman Projects */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="flex justify-center"
+        >
+          <Link href="/projects">
+            <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/30 text-sm font-medium transition-all hover:scale-105 active:scale-95 group cursor-pointer shadow-lg">
+              <Cpu size={16} className="text-slate-500 group-hover:text-teal-400 transition-colors" />
+              <span>Lihat Showcases Kelompok</span>
+              <ArrowRight size={14} className="text-slate-500 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </Link>
+        </motion.div>
       </div>
     </main>
   );
