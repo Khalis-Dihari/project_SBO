@@ -1,42 +1,50 @@
-"use client"; // Wajib pakai ini karena kita menggunakan hooks (usePathname) dan Framer Motion
+"use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-import { Code2, LogIn, Home, Briefcase } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { Code2, Home, Briefcase, LogOut, ChevronDown } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Daftar menu navigasi (bisa ditambah nanti)
+  // Jika di halaman login, jangan tampilkan navbar sama sekali
+  if (pathname === '/login') return null;
+
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    setIsDropdownOpen(false);
+    router.push('/login');
+    router.refresh();
+  };
+
   const navLinks = [
     { name: "Home", path: "/", icon: <Home size={16} /> },
     { name: "Projects", path: "/#projects", icon: <Briefcase size={16} /> },
   ];
 
   return (
-    // Wrapper untuk memposisikan navbar mengambang (floating) di tengah
     <div className="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-50">
-      
-      {/* Animasi saat halaman pertama kali diload */}
       <motion.nav 
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="flex items-center justify-between px-4 py-3 md:px-6 rounded-full bg-slate-900/60 border border-slate-700/50 backdrop-blur-xl shadow-2xl shadow-teal-900/20"
       >
-        
-        {/* Logo / Brand Group */}
+        {/* Logo Brand */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="bg-teal-500/10 p-2 rounded-full group-hover:bg-teal-500/20 transition-colors">
             <Code2 size={20} className="text-teal-400 group-hover:scale-110 transition-transform" />
           </div>
-          <span className="font-bold text-lg tracking-wide text-slate-100 group-hover:text-white transition-colors">
+          <span className="font-bold text-lg tracking-wide text-slate-100">
             SBO<span className="text-teal-500">.</span>
           </span>
         </Link>
 
-        {/* Center Links (Pill di dalam Pill) - Sembunyi di HP, muncul di layar menengah ke atas */}
+        {/* Menu Navigasi Tengah */}
         <div className="hidden md:flex items-center gap-1 bg-slate-800/50 p-1 rounded-full border border-slate-700/50">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
@@ -57,13 +65,51 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Login Button CTA (Call to Action) */}
-        <Link href="/login">
-          <button className="flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full bg-linear-to-r from-teal-500 to-emerald-500 text-slate-950 hover:from-teal-400 hover:to-emerald-400 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-teal-500/25 cursor-pointer">
-            <LogIn size={16} />
-            <span className="hidden sm:inline">Login</span>
+        {/* Profile Avatar + Dropdown Menu */}
+        <div className="relative">
+          <button 
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center gap-2 p-1 pr-3 rounded-full bg-slate-800/80 border border-slate-700 hover:border-teal-500/40 transition-all cursor-pointer select-none"
+          >
+            {/* Avatar Bulat Gradient */}
+            <div className="w-8 h-8 rounded-full bg-linear-to-r from-teal-400 to-blue-500 flex items-center justify-center text-slate-950 font-bold text-xs shadow-md">
+              AD
+            </div>
+            <span className="text-xs font-semibold text-slate-300 hidden sm:inline">Admin</span>
+            <ChevronDown size={14} className={`text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
           </button>
-        </Link>
+
+          {/* Isi Dropdown Menu (Muncul dengan Animasi Smooth) */}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <>
+                {/* Backdrop transparan untuk menutup dropdown jika klik di luar */}
+                <div className="fixed inset-0 z-0" onClick={() => setIsDropdownOpen(false)} />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 mt-2 w-44 rounded-2xl bg-slate-900 border border-slate-800 p-1.5 shadow-2xl z-10"
+                >
+                  <div className="px-3 py-2 border-b border-slate-800/60 mb-1">
+                    <p className="text-xs text-slate-500">Logged in as</p>
+                    <p className="text-sm font-medium text-slate-300 truncate">Kelompok SBO</p>
+                  </div>
+                  
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-colors cursor-pointer text-left font-medium"
+                  >
+                    <LogOut size={16} />
+                    <span>Sign Out</span>
+                  </button>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
         
       </motion.nav>
     </div>
