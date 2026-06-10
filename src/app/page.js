@@ -37,7 +37,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* ... Sisa kode Grid Projects ke bawah tetap sama seperti kemarin ... */}
 
         {/* Project Grid */}
         <div className="space-y-6">
