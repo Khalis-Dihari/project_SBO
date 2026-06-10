@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Monitoring Jaringan OSPF",
+      "desc": "Tugas simulasi routing protokol menggunakan Cisco Packet Tracer.",
+      "tech": ["Networking", "Cisco"]
+    }
+  ]
+}
