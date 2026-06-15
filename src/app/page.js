@@ -55,7 +55,7 @@ export default function Home() {
             </span>
           </h2>
           <p className="text-lg md:text-xl font-mono text-teal-400 italic mb-8">
-            "Learning, Creating, and Innovating Through Technology."
+            "Learning, Creating, and Innovating Through Technology.''
           </p>
         </motion.div>
 
