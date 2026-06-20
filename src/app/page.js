@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Cpu, ArrowRight, User } from 'lucide-react';
 import Link from 'next/link';
 import AccordionText from '@/components/AccordionText';
+import PhotoCarousel from '@/components/PhotoCarousel';
 
 export default function Home() {
   // Data profil pribadi
@@ -29,6 +30,15 @@ export default function Home() {
       title: "Tujuan Portfolio",
       content:
         "Melalui portfolio ini, saya menampilkan berbagai proyek, pengalaman, dan keterampilan yang telah saya kembangkan sebagai bentuk komitmen saya dalam membangun karier profesional di dunia teknologi informasi.",
+    },
+  ];
+
+  const profilePhotos = [
+    {
+      src: "/jason.jpg",
+      alt: "Foto profil Jason",
+      title: "Dokumentasi Portfolio",
+      description: "Foto utama yang digunakan pada halaman profil.",
     },
   ];
 
@@ -87,6 +97,16 @@ export default function Home() {
         >
           <AccordionText items={aboutItems} />
         </motion.div>
+
+        {/* Carousel Foto */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mx-auto mt-12 max-w-3xl"
+        >
+          <PhotoCarousel photos={profilePhotos} />
+        </motion.section>
 
         {/* CTA Button */}
         <motion.div
