@@ -39,6 +39,24 @@ export default function Home() {
       title: "Dokumentasi Portfolio",
       description: "Foto utama yang digunakan pada halaman profil.",
     },
+    {
+      src: "/foto-1.jpg",
+      alt: "Foto Jason saat presentasi",
+      title: "Presentasi Proyek",
+      description: "Foto saat Jason mempresentasikan proyeknya di acara teknologi.",
+    },
+    {
+      src: "/foto-2.jpg",
+      alt: "Foto Jason dengan tim",
+      title: "Kolaborasi Tim",
+      description: "Foto saat Jason bekerja sama dengan timnya dalam sebuah proyek.",
+    },
+    {
+      src: "/foto-3.jpg",
+      alt: "Foto Jason dalam acara teknologi",
+      title: "Acara Teknologi",
+      description: "Foto saat Jason menghadiri acara teknologi dan bertukar pikiran dengan ahli di bidangnya.",
+    },
   ];
 
   return (
