@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Cpu, ArrowRight, User } from 'lucide-react';
 import Link from 'next/link';
+import AccordionText from '@/components/AccordionText';
 
 export default function Home() {
   // Data profil pribadi
@@ -12,6 +13,24 @@ export default function Home() {
     nim: "NIM: 23061100",
     photo: "/jason.jpg" // Pastikan file jason.jpg sudah ada di folder public
   };
+
+  const aboutItems = [
+    {
+      title: "Profil Singkat",
+      content:
+        "Saya adalah mahasiswa Teknik Informatika yang memiliki minat dalam bidang teknologi informasi, pengembangan perangkat lunak, keamanan siber, dan analisis data. Saya memiliki semangat untuk terus belajar dan mengembangkan kemampuan dalam menghadapi perkembangan teknologi yang semakin pesat.",
+    },
+    {
+      title: "Bidang yang Dipelajari",
+      content:
+        "Selama menempuh pendidikan, saya telah mempelajari berbagai konsep dan teknologi seperti pemrograman, basis data, pengembangan web, jaringan komputer, serta keamanan sistem informasi. Saya percaya bahwa teknologi dapat menjadi solusi untuk berbagai permasalahan sehingga mendorong saya untuk terus berinovasi dan meningkatkan kompetensi di bidang informatika.",
+    },
+    {
+      title: "Tujuan Portfolio",
+      content:
+        "Melalui portfolio ini, saya menampilkan berbagai proyek, pengalaman, dan keterampilan yang telah saya kembangkan sebagai bentuk komitmen saya dalam membangun karier profesional di dunia teknologi informasi.",
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 px-6 pb-12 flex flex-col items-center">
@@ -55,7 +74,7 @@ export default function Home() {
             </span>
           </h2>
           <p className="text-lg md:text-xl font-mono text-teal-400 italic mb-8">
-            "Learning, Creating, and Innovating Through Technology.''
+            &quot;Learning, Creating, and Innovating Through Technology.&quot;
           </p>
         </motion.div>
 
@@ -64,17 +83,9 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
+          className="mx-auto max-w-3xl"
         >
-          <p>
-            Saya adalah mahasiswa Teknik Informatika yang memiliki minat dalam bidang teknologi informasi, pengembangan perangkat lunak, keamanan siber, dan analisis data. Saya memiliki semangat untuk terus belajar dan mengembangkan kemampuan dalam menghadapi perkembangan teknologi yang semakin pesat.
-          </p>
-          <p>
-            Selama menempuh pendidikan, saya telah mempelajari berbagai konsep dan teknologi seperti pemrograman, basis data, pengembangan web, jaringan komputer, serta keamanan sistem informasi. Saya percaya bahwa teknologi dapat menjadi solusi untuk berbagai permasalahan sehingga mendorong saya untuk terus berinovasi dan meningkatkan kompetensi di bidang informatika.
-          </p>
-          <p>
-            Melalui portfolio ini, saya menampilkan berbagai proyek, pengalaman, dan keterampilan yang telah saya kembangkan sebagai bentuk komitmen saya dalam membangun karier profesional di dunia teknologi informasi.
-          </p>
+          <AccordionText items={aboutItems} />
         </motion.div>
 
         {/* CTA Button */}
