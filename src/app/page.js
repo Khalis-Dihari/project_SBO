@@ -18,8 +18,7 @@ export default function Home() {
   const aboutItems = [
     {
       title: "Profil Singkat",
-      content:
-        "Saya adalah mahasiswa Teknik Informatika yang memiliki minat dalam bidang teknologi informasi, pengembangan perangkat lunak, keamanan siber, dan analisis data. Saya memiliki semangat untuk terus belajar dan mengembangkan kemampuan dalam menghadapi perkembangan teknologi yang semakin pesat.",
+      contentFile: "/profil-singkat.txt",
     },
     {
       title: "Bidang yang Dipelajari",

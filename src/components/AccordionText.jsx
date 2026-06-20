@@ -1,11 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 export default function AccordionText({ items }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const [fileContents, setFileContents] = useState({});
+
+  useEffect(() => {
+    const itemsWithFiles = items.filter((item) => item.contentFile);
+
+    itemsWithFiles.forEach(async (item) => {
+      if (fileContents[item.contentFile]) {
+        return;
+      }
+
+      try {
+        const response = await fetch(item.contentFile);
+        const text = await response.text();
+
+        setFileContents((currentContents) => ({
+          ...currentContents,
+          [item.contentFile]: text,
+        }));
+      } catch {
+        setFileContents((currentContents) => ({
+          ...currentContents,
+          [item.contentFile]: "Konten belum bisa dimuat.",
+        }));
+      }
+    });
+  }, [items, fileContents]);
 
   const toggleItem = (index) => {
     setOpenIndex((currentIndex) => (currentIndex === index ? null : index));
@@ -15,6 +41,9 @@ export default function AccordionText({ items }) {
     <div className="space-y-4">
       {items.map((item, index) => {
         const isOpen = openIndex === index;
+        const content = item.contentFile
+          ? fileContents[item.contentFile] || "Memuat konten..."
+          : item.content;
 
         return (
           <div
@@ -46,9 +75,9 @@ export default function AccordionText({ items }) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                 >
-                  <p className="px-5 pb-5 text-sm md:text-base leading-relaxed text-slate-300 text-justify">
-                    {item.content}
-                  </p>
+                  <div className="whitespace-pre-line px-5 pb-5 text-sm md:text-base leading-relaxed text-slate-300 text-justify">
+                    {content}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
