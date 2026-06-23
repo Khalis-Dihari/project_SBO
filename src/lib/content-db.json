@@ -24,28 +24,28 @@
         "id": 1,
         "title": "Malam Keakraban (Makrab)",
         "date": "September 2025",
-        "image": "/kegiatan1.jpg",
+        "image": "",
         "slug": "makrab"
       },
       {
         "id": 2,
         "title": "Workshop & Tech Talk",
         "date": "November 2025",
-        "image": "/kegiatan2.jpg",
+        "image": "",
         "slug": "workshop"
       },
       {
         "id": 3,
         "title": "Pengabdian Kepada Masyarakat",
         "date": "Februari 2026",
-        "image": "/kegiatan3.jpg",
+        "image": "",
         "slug": "pengabdian"
       },
       {
         "id": 4,
         "title": "Rapat Kerja Tahunan",
         "date": "Mei 2026",
-        "image": "/kegiatan4.jpg",
+        "image": "",
         "slug": "rapat"
       }
     ]
@@ -56,7 +56,11 @@
       "title": "Sistem Manajemen Keuangan",
       "desc": "Aplikasi berbasis web untuk mencatat dan menganalisis arus kas keuangan secara real-time dengan grafik interaktif.",
       "category": "Web App",
-      "tech": ["Next.js", "Tailwind CSS", "Node.js"],
+      "tech": [
+        "Next.js",
+        "Tailwind CSS",
+        "Node.js"
+      ],
       "image": ""
     },
     {
@@ -64,7 +68,11 @@
       "title": "Analisis Data E-Commerce",
       "desc": "Menganalisis tren penjualan dan perilaku pelanggan menggunakan dataset e-commerce untuk optimasi strategi marketing.",
       "category": "Data Science",
-      "tech": ["Python", "Pandas", "Jupyter"],
+      "tech": [
+        "Python",
+        "Pandas",
+        "Jupyter"
+      ],
       "image": ""
     }
   ],

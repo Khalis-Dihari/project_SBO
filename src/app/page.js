@@ -93,7 +93,7 @@ export default function Home() {
         {/* ==========================================================
             5. NEW: OUR ACTIVITIES SECTION
            ========================================================== */}
-        <ActivitySection activities={home.activities} />
+        <ActivitySection activities={home.activities} pictures={content.pictures} />
 
         {/* ==========================================================
             6. CTA BUTTON SECTION
