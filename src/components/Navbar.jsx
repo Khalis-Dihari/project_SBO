@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Code2, Home, Briefcase, LogOut, ChevronDown } from "lucide-react";
+import { Code2, Home, Briefcase, Image, LogOut, ChevronDown } from "lucide-react"; // Menambahkan import ikon Image
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -21,9 +21,11 @@ export default function Navbar() {
     router.refresh();
   };
 
-const navLinks = [
+  // BAGIAN KAMU (SCRUM-42): Menambahkan objek "Picture" ke dalam satu kemasan array navigasi tengah
+  const navLinks = [
     { name: "Home", path: "/", icon: <Home size={16} /> },
-    { name: "Projects", path: "/projects", icon: <Briefcase size={16} /> }, // Diubah ke /projects
+    { name: "Projects", path: "/projects", icon: <Briefcase size={16} /> }, 
+    { name: "Picture", path: "/picture", icon: <Image size={16} /> }, // Menu baru satu paket
   ];
   
   return (
@@ -44,7 +46,7 @@ const navLinks = [
           </span>
         </Link>
 
-        {/* Menu Navigasi Tengah */}
+        {/* Menu Navigasi Tengah (Sekarang otomatis merender 3 menu: Home, Projects, Picture) */}
         <div className="hidden md:flex items-center gap-1 bg-slate-800/50 p-1 rounded-full border border-slate-700/50">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
