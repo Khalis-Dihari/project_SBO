@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cpu, ArrowRight, User, MapPin, Layers, Calendar } from 'lucide-react';
+import { Cpu, ArrowRight, User, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import AccordionText from '@/components/AccordionText';
-import PhotoCarousel from '@/components/PhotoCarousel';
+import ActivitySection from '@/components/ActivitySection';
+import ConcentrationSection from '@/components/ConcentrationSection';
 
 export default function Home() {
   const profileData = { 
@@ -174,118 +174,12 @@ export default function Home() {
         {/* ==========================================================
             4. CONCENTRATION SECTION
            ========================================================== */}
-        <div className="w-full pt-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white text-left">
-              <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-                Our Concentrations
-              </span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
-          >
-            <p>
-              Program Studi Teknik Informatika Universitas Widyatama menyediakan beberapa bidang konsentrasi yang dapat dipilih oleh mahasiswa guna mendalami kompetensi tertentu sesuai dengan minat dan tuntutan kebutuhan industri teknologi masa kini.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-              {concentrations.map((item, index) => (
-                <div 
-                  key={index} 
-                  className="p-6 bg-slate-900/30 border border-slate-800 rounded-2xl hover:border-teal-500/30 transition-all duration-300 text-left flex flex-col h-full shadow-md"
-                >
-                  <Layers size={18} className={index % 2 === 0 ? "text-teal-400 mb-3" : "text-cyan-400 mb-3"} />
-                  <h3 className="font-bold text-slate-100 text-lg mb-2">{item.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed mb-4 flex-grow">{item.desc}</p>
-                  
-                  <div className="pt-3 border-t border-slate-800/60 space-y-2 text-xs">
-                    <p className="text-slate-400"><strong className="text-slate-300">Skill:</strong> {item.skills}</p>
-                    <p className="text-slate-400"><strong className="text-slate-300">Next Step:</strong> {item.nextSteps}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+        <ConcentrationSection concentrations={concentrations} />
 
         {/* ==========================================================
             5. NEW: OUR ACTIVITIES SECTION
            ========================================================== */}
-        <div className="w-full pt-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white text-left">
-              <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-                Our Activities
-              </span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
-          >
-            <p>
-              Dokumentasi serangkaian kegiatan internal maupun eksternal yang diselenggarakan oleh HIMATIF Universitas Widyatama untuk mempererat solidaritas antar-anggota sekaligus meningkatkan wawasan teknologi global mahasiswa.
-            </p>
-
-            {/* Grid Galeri Foto Kegiatan */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-              {activities.map((act, index) => {
-                // Logika pembuat slug otomatis berdasarkan judul kegiatan
-                const slug = act.title.toLowerCase().includes("makrab") ? "makrab" 
-                           : act.title.toLowerCase().includes("workshop") ? "workshop" 
-                           : act.title.toLowerCase().includes("pengabdian") ? "pengabdian" 
-                           : "rapat";
-
-                return (
-                  <Link 
-                    key={index}
-                    href={`/picture?kegiatan=${slug}`} // Mengarahkan ke halaman picture dengan filter query
-                    className="group relative overflow-hidden bg-slate-900/40 border border-slate-800/80 rounded-2xl shadow-lg transition-all duration-300 hover:border-teal-500/30 flex flex-col cursor-pointer"
-                  >
-                    {/* Container Foto */}
-                    <div className="w-full aspect-video bg-slate-950 overflow-hidden relative">
-                      {/* Fallback box jika foto belum ada */}
-                      <div className="absolute inset-0 bg-slate-900 flex items-center justify-center text-slate-600 font-mono text-xs group-hover:scale-105 transition-transform duration-500">
-                        [ Tempat Foto: {act.title} ]
-                      </div>
-                      {/* Jika file foto sudah siap di folder public/, hapus div fallback di atas dan gunakan tag img di bawah ini: */}
-                      {/* <img src={act.image} alt={act.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> */}
-                    </div>
-
-                    {/* Keterangan Foto */}
-                    <div className="p-4 bg-slate-900/20 border-t border-slate-800/50 text-left">
-                      <h3 className="font-bold text-slate-100 text-base tracking-wide group-hover:text-teal-400 transition-colors">
-                        {act.title}
-                      </h3>
-                      <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-1">
-                        <Calendar size={12} className="text-slate-500" />
-                        <span>{act.date}</span>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </motion.div>
-        </div>
+        <ActivitySection activities={activities} />
 
         {/* ==========================================================
             6. CTA BUTTON SECTION
