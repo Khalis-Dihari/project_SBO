@@ -1,18 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cpu, ArrowRight, User, MapPin } from 'lucide-react';
+import { Cpu, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import AboutSection from '@/components/AboutSection';
 import ActivitySection from '@/components/ActivitySection';
 import ConcentrationSection from '@/components/ConcentrationSection';
+import HomeContentEditor from '@/components/HomeContentEditor';
+import LocationSection from '@/components/LocationSection';
+import ProfileSection from '@/components/ProfileSection';
+import useEditableContent from '@/lib/useEditableContent';
 
 export default function Home() {
-  const profileData = { 
-    name: "Jason", 
-    role: "Lead Software Engineer / Network Architect", 
-    nim: "NIM: 23061100",
-    photo: "/jason.jpg" 
-  };
+  const { content, setContent, isAdmin, saving, saveSection } = useEditableContent();
 
   // Data 5 Konsentrasi asli berdasarkan infografis HIMATIF
   const concentrations = [
@@ -48,128 +48,42 @@ export default function Home() {
     }
   ];
 
-  // Data Foto Kegiatan HIMATIF (Silakan ganti src dengan path foto kamu nanti)
-  const activities = [
-    {
-      title: "Malam Keakraban (Makrab)",
-      date: "September 2025",
-      image: "/kegiatan1.jpg" // Ganti dengan file foto kamu di folder public
-    },
-    {
-      title: "Workshop & Tech Talk",
-      date: "November 2025",
-      image: "/kegiatan2.jpg"
-    },
-    {
-      title: "Pengabdian Kepada Masyarakat",
-      date: "Februari 2026",
-      image: "/kegiatan3.jpg"
-    },
-    {
-      title: "Rapat Kerja Tahunan",
-      date: "Mei 2026",
-      image: "/kegiatan4.jpg"
-    }
-  ];
+  if (!content) {
+    return (
+      <main className="min-h-screen bg-slate-950 text-slate-400 pt-32 px-6 pb-24 flex flex-col items-center">
+        Memuat konten...
+      </main>
+    );
+  }
+
+  const home = content.home;
+  const updateHome = (homeValue) => {
+    setContent({ ...content, home: homeValue });
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 px-6 pb-24 flex flex-col items-center">
       <div className="max-w-4xl w-full z-10">
         
-        {/* ==========================================================
-            1. PROFILE SECTION
-           ========================================================== */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full flex flex-col items-center mb-16"
-        >
-          <div className="flex flex-col items-center bg-slate-900/40 border border-slate-800 p-8 rounded-3xl hover:border-teal-500/50 hover:bg-slate-800/50 transition-all duration-300 group w-full max-sm shadow-xl shadow-teal-900/10">
-            <div className="w-32 h-32 mb-6 rounded-full bg-slate-950 border-2 border-slate-700 group-hover:border-teal-400 flex items-center justify-center overflow-hidden transition-colors">
-              {profileData.photo ? (
-                <img src={profileData.photo} alt={profileData.name} className="w-full h-full object-cover" />
-              ) : (
-                <User size={50} className="text-slate-600 group-hover:text-teal-500 transition-colors" />
-              )}
-            </div>
-            
-            <h1 className="text-2xl font-bold text-slate-100 text-center tracking-wide">{profileData.name}</h1>
-            <p className="text-teal-400 text-sm font-medium mt-2 text-center px-4">{profileData.role}</p>
-            
-            <div className="mt-6 pt-4 border-t border-slate-800 w-full text-center">
-              <p className="text-slate-400 font-mono text-sm">{profileData.nim}</p>
-            </div>
-          </div>
-        </motion.div>
+        <ProfileSection profile={home.profile} />
+        {isAdmin && (
+          <HomeContentEditor
+            home={home}
+            onChange={updateHome}
+            onSave={() => saveSection('home', home)}
+            saving={saving}
+          />
+        )}
 
         {/* ==========================================================
             2. ABOUT ME SECTION
            ========================================================== */}
-        <div className="w-full"> 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-6" 
-          >
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white text-left">
-              <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-                About Me
-              </span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
-          >
-            <p>
-              Himpunan Mahasiswa Teknik Informatika (HIMATIF) Universitas Widyatama merupakan organisasi kemahasiswaan intra-kampus yang berfungsi sebagai wadah utama untuk menampung aspirasi, mengasah kreativitas, serta mengembangkan potensi akademis dan non-akademis seluruh mahasiswa program studi Teknik Informatika di Universitas Widyatama.
-            </p>
-            <p>
-              Didirikan dengan semangat kolaborasi dan inovasi di bidang teknologi, HIMATIF berkomitmen untuk menciptakan ekosistem mahasiswa yang unggul, adaptif terhadap perkembangan industri global, serta mampu memberikan kontribusi nyata melalui penerapan Tri Dharma Perguruan Tinggi.
-            </p>
-          </motion.div>
-        </div>
+        <AboutSection about={home.about} />
 
         {/* ==========================================================
             3. LOCATION SECTION
            ========================================================== */}
-        <div className="w-full pt-32"> 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white text-left">
-              <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-                Our Location
-              </span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
-          >
-            <p>
-              Sekretariat HIMATIF Universitas Widyatama berlokasi secara strategis di dalam area kampus utama guna mempermudah akses koordinasi bagi seluruh pengurus dan mahasiswa Teknik Informatika. Tempat ini menjadi titik pusat dari perancangan seluruh program kerja serta wadah diskusi harian.
-            </p>
-            <div className="flex gap-4 p-6 bg-slate-900/30 border border-slate-800 rounded-2xl items-start max-w-2xl shadow-md mt-4">
-              <MapPin className="text-teal-400 shrink-0 mt-1" size={20} />
-              <div className="text-left space-y-1">
-                <p className="font-bold text-slate-100">Gedung Pusat Kegiatan Mahasiswa (PKM) Lt. 2</p>
-                <p className="text-sm text-slate-400 leading-relaxed">Jl. Cikutra No. 204A, Sukapada, Kec. Cibeunying Kidul, Kota Bandung, Jawa Barat 40124</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        <LocationSection location={home.location} />
 
         {/* ==========================================================
             4. CONCENTRATION SECTION
@@ -179,7 +93,7 @@ export default function Home() {
         {/* ==========================================================
             5. NEW: OUR ACTIVITIES SECTION
            ========================================================== */}
-        <ActivitySection activities={activities} />
+        <ActivitySection activities={home.activities} />
 
         {/* ==========================================================
             6. CTA BUTTON SECTION

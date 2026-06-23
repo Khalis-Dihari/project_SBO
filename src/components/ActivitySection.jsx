@@ -42,7 +42,7 @@ export default function ActivitySection({ activities }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
           {activities.map((activity) => {
-            const slug = getActivitySlug(activity.title);
+            const slug = activity.slug || getActivitySlug(activity.title);
 
             return (
               <Link
@@ -51,9 +51,17 @@ export default function ActivitySection({ activities }) {
                 className="group relative overflow-hidden bg-slate-900/40 border border-slate-800/80 rounded-2xl shadow-lg transition-all duration-300 hover:border-teal-500/30 flex flex-col cursor-pointer"
               >
                 <div className="w-full aspect-video bg-slate-950 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-slate-900 flex items-center justify-center text-slate-600 font-mono text-xs group-hover:scale-105 transition-transform duration-500">
-                    [ Tempat Foto: {activity.title} ]
-                  </div>
+                  {activity.image ? (
+                    <img
+                      src={activity.image}
+                      alt={activity.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-slate-900 flex items-center justify-center text-slate-600 font-mono text-xs group-hover:scale-105 transition-transform duration-500">
+                      [ Tempat Foto: {activity.title} ]
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-4 bg-slate-900/20 border-t border-slate-800/50 text-left">
