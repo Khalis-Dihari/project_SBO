@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { Cpu, ArrowRight, User, MapPin, Layers, Calendar } from 'lucide-react';
 import Link from 'next/link';
+import AccordionText from '@/components/AccordionText';
+import PhotoCarousel from '@/components/PhotoCarousel';
 
 export default function Home() {
   const profileData = { 
