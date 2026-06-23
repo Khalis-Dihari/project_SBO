@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Code2, Home, Briefcase, LogOut, ChevronDown, 
-  Lock, X, Eye, EyeOff, Loader2 
+  Lock, X, Eye, EyeOff, Loader2, Image as ImageIcon
 } from "lucide-react";
 
 export default function Navbar() {
@@ -36,14 +36,47 @@ export default function Navbar() {
     router.refresh();
   };
 
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrorMsg('');
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+
+    if (formData.newPassword !== formData.confirmPassword) {
+      setErrorMsg('Password baru dan konfirmasi tidak cocok!');
+      return;
+    }
+
+    if (formData.newPassword.length < 6) {
+      setErrorMsg('Password baru minimal 6 karakter!');
+      return;
+    }
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setSuccessMsg('Password berhasil diperbarui!');
+      setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+
+      setTimeout(() => {
+        setSuccessMsg('');
+        setIsModalOpen(false);
+      }, 2000);
+    }, 1500);
+  };
+
   // BAGIAN KAMU (SCRUM-42): Menambahkan objek "Picture" ke dalam satu kemasan array navigasi tengah
   const navLinks = [
     { name: "Home", path: "/", icon: <Home size={16} /> },
     { name: "Projects", path: "/projects", icon: <Briefcase size={16} /> }, 
-    { name: "Picture", path: "/picture", icon: <Image size={16} /> }, // Menu baru satu paket
+    { name: "Picture", path: "/picture", icon: <ImageIcon size={16} /> }, // Menu baru satu paket
   ];
   
   return (
+    <>
     <div className="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-50">
       <motion.nav 
         initial={{ y: -20, opacity: 0 }}
@@ -81,42 +114,6 @@ export default function Navbar() {
             );
           })}
         </div>
-
-        {/* Profile Avatar + Dropdown Menu */}
-        <div className="relative">
-          <button 
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-2 p-1 pr-3 rounded-full bg-slate-800/80 border border-slate-700 hover:border-teal-500/40 transition-all cursor-pointer select-none"
-          >
-            {/* Avatar Bulat Gradient */}
-            <div className="w-8 h-8 rounded-full bg-linear-to-r from-teal-400 to-blue-500 flex items-center justify-center text-slate-950 font-bold text-xs shadow-md">
-              AD
-            </div>
-            <span className="font-bold text-lg tracking-wide text-slate-100">
-              SBO<span className="text-teal-500">.</span>
-            </span>
-          </Link>
-
-          {/* Menu Navigasi Tengah */}
-          <div className="hidden md:flex items-center gap-1 bg-slate-800/50 p-1 rounded-full border border-slate-700/50">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.path;
-              return (
-                <Link
-                  key={link.name}
-                  href={link.path}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    isActive 
-                      ? "bg-slate-700 text-teal-300 shadow-sm" 
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
-                  }`}
-                >
-                  {link.icon}
-                  {link.name}
-                </Link>
-              );
-            })}
-          </div>
 
           {/* Profile Avatar + Dropdown Menu */}
           <div className="relative">
