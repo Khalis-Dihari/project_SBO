@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Code2, Home, Briefcase, LogOut, ChevronDown, 
-  Lock, X, Eye, EyeOff, Loader2 
+  Lock, X, Eye, EyeOff, Loader2, Image as ImageIcon
 } from "lucide-react";
 
 export default function Navbar() {
@@ -38,31 +38,29 @@ export default function Navbar() {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrorMsg(''); // Reset error saat mengetik
+    setErrorMsg('');
   };
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    
+
     if (formData.newPassword !== formData.confirmPassword) {
       setErrorMsg('Password baru dan konfirmasi tidak cocok!');
       return;
     }
-    
+
     if (formData.newPassword.length < 6) {
       setErrorMsg('Password baru minimal 6 karakter!');
       return;
     }
 
     setIsLoading(true);
-    
-    // Simulasi request ke backend
+
     setTimeout(() => {
       setIsLoading(false);
       setSuccessMsg('Password berhasil diperbarui!');
       setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-      
-      // Tutup modal otomatis
+
       setTimeout(() => {
         setSuccessMsg('');
         setIsModalOpen(false);
@@ -70,50 +68,52 @@ export default function Navbar() {
     }, 1500);
   };
 
+  // BAGIAN KAMU (SCRUM-42): Menambahkan objek "Picture" ke dalam satu kemasan array navigasi tengah
   const navLinks = [
     { name: "Home", path: "/", icon: <Home size={16} /> },
-    { name: "Projects", path: "/projects", icon: <Briefcase size={16} /> },
+    { name: "Projects", path: "/projects", icon: <Briefcase size={16} /> }, 
+    { name: "Picture", path: "/picture", icon: <ImageIcon size={16} /> }, // Menu baru satu paket
   ];
   
   return (
     <>
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-40">
-        <motion.nav 
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex items-center justify-between px-4 py-3 md:px-6 rounded-full bg-slate-900/60 border border-slate-700/50 backdrop-blur-xl shadow-2xl shadow-teal-900/20"
-        >
-          {/* Logo Brand */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-teal-500/10 p-2 rounded-full group-hover:bg-teal-500/20 transition-colors">
-              <Code2 size={20} className="text-teal-400 group-hover:scale-110 transition-transform" />
-            </div>
-            <span className="font-bold text-lg tracking-wide text-slate-100">
-              SBO<span className="text-teal-500">.</span>
-            </span>
-          </Link>
-
-          {/* Menu Navigasi Tengah */}
-          <div className="hidden md:flex items-center gap-1 bg-slate-800/50 p-1 rounded-full border border-slate-700/50">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.path;
-              return (
-                <Link
-                  key={link.name}
-                  href={link.path}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    isActive 
-                      ? "bg-slate-700 text-teal-300 shadow-sm" 
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
-                  }`}
-                >
-                  {link.icon}
-                  {link.name}
-                </Link>
-              );
-            })}
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-50">
+      <motion.nav 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="flex items-center justify-between px-4 py-3 md:px-6 rounded-full bg-slate-900/60 border border-slate-700/50 backdrop-blur-xl shadow-2xl shadow-teal-900/20"
+      >
+        {/* Logo Brand */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="bg-teal-500/10 p-2 rounded-full group-hover:bg-teal-500/20 transition-colors">
+            <Code2 size={20} className="text-teal-400 group-hover:scale-110 transition-transform" />
           </div>
+          <span className="font-bold text-lg tracking-wide text-slate-100">
+            SBO<span className="text-teal-500">.</span>
+          </span>
+        </Link>
+
+        {/* Menu Navigasi Tengah (Sekarang otomatis merender 3 menu: Home, Projects, Picture) */}
+        <div className="hidden md:flex items-center gap-1 bg-slate-800/50 p-1 rounded-full border border-slate-700/50">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.path;
+            return (
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  isActive 
+                    ? "bg-slate-700 text-teal-300 shadow-sm" 
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
+                }`}
+              >
+                {link.icon}
+                {link.name}
+              </Link>
+            );
+          })}
+        </div>
 
           {/* Profile Avatar + Dropdown Menu */}
           <div className="relative">

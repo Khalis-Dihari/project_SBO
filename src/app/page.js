@@ -1,76 +1,91 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cpu, ArrowRight, User } from 'lucide-react';
+import { Cpu, ArrowRight, User, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import AccordionText from '@/components/AccordionText';
-import PhotoCarousel from '@/components/PhotoCarousel';
+import ActivitySection from '@/components/ActivitySection';
+import ConcentrationSection from '@/components/ConcentrationSection';
 
 export default function Home() {
-  // Data profil pribadi
   const profileData = { 
     name: "Jason", 
     role: "Lead Software Engineer / Network Architect", 
     nim: "NIM: 23061100",
-    photo: "/jason.jpg" // Pastikan file jason.jpg sudah ada di folder public
+    photo: "/jason.jpg" 
   };
 
-  const aboutItems = [
+  // Data 5 Konsentrasi asli berdasarkan infografis HIMATIF
+  const concentrations = [
     {
-      title: "Profil Singkat",
-      contentFile: "/profil-singkat.txt",
+      title: "Applied Networking",
+      desc: "Mempelajari cara merancangkan, membangun, dan mengelola Jaringan Komputer, mulai dari LAN, WAN, hingga konfigurasi perangkat seperti Router, Switch, dan Firewall. Konsentrasi ini juga membahas keamanan Jaringan, Virtualisasi, serta Cloud Networking.",
+      skills: "Network setup & configuration, network security, cloud & virtual networks.",
+      nextSteps: "Network Engineer, System Administrator, Security Analyst, IT Support."
     },
     {
-      title: "Bidang yang Dipelajari",
-      content:
-        "Selama menempuh pendidikan, saya telah mempelajari berbagai konsep dan teknologi seperti pemrograman, basis data, pengembangan web, jaringan komputer, serta keamanan sistem informasi. Saya percaya bahwa teknologi dapat menjadi solusi untuk berbagai permasalahan sehingga mendorong saya untuk terus berinovasi dan meningkatkan kompetensi di bidang informatika.",
+      title: "Interfacing System",
+      desc: "Fokus pada integrasi antara perangkat keras dan lunak, seperti Sistem otomatisasi dan IoT. Mahasiswa akan belajar mikrokontroler (Arduino, Raspberry Pi), komunikasi data, sensor, hingga pengembangan Sistem Embedded yang terhubung ke aplikasi.",
+      skills: "Embedded system, hardware programming, sensor & automation, IoT development.",
+      nextSteps: "Embedded System Engineer, IoT Developer, Automation Engineer."
     },
     {
-      title: "Tujuan Portfolio",
-      content:
-        "Melalui portfolio ini, saya menampilkan berbagai proyek, pengalaman, dan keterampilan yang telah saya kembangkan sebagai bentuk komitmen saya dalam membangun karier profesional di dunia teknologi informasi.",
+      title: "Applied Database",
+      desc: "Mengajarkan pengelolaan dan pengembangan sistem database relasional dan non-relasional, termasuk analisis data dan penerapannya dalam Cloud Computing dan big data. Cocok untuk kamu yang tertarik dengan Data dan Logika Sistem Informasi.",
+      skills: "SQL/NoSQL, data analysis, big data management, cloud database.",
+      nextSteps: "Database Administrator, Data Analyst, Data Engineer, BI Developer, Data Scientist."
     },
+    {
+      title: "Game & Multimedia",
+      desc: "Konsentrasi ini berfokus pada pembuatan Game dan Konten Visual Interaktif. Mahasiswa akan belajar Desain dan Pengembangan Game menggunakan Game Engine, Animasi 2D/3D, Efek Visual, hingga pembuatan karakter dan lingkungan digital yang menarik.",
+      skills: "Game development, 3D modeling & animation, visual effects, UX game design.",
+      nextSteps: "Game Developer, 3D Artist, Animator, Multimedia Specialist."
+    },
+    {
+      title: "Information Technology",
+      desc: "Mempelajari penerapan Teknologi Informasi untuk kebutuhan organisasi dan bisnis, mulai dari Software Engineering, Sistem Informasi, hingga manajemen proyek dan keamanan informasi. Fokusnya Aplikatif dan Strategis.",
+      skills: "Software development, system analysis, IT project management, decision support.",
+      nextSteps: "IT Consultant, System Analyst, Software Developer, IT Project Manager."
+    }
   ];
 
-  const profilePhotos = [
+  // Data Foto Kegiatan HIMATIF (Silakan ganti src dengan path foto kamu nanti)
+  const activities = [
     {
-      src: "/jason.jpg",
-      alt: "Foto profil Jason",
-      title: "Dokumentasi Portfolio",
-      description: "Foto utama yang digunakan pada halaman profil.",
+      title: "Malam Keakraban (Makrab)",
+      date: "September 2025",
+      image: "/kegiatan1.jpg" // Ganti dengan file foto kamu di folder public
     },
     {
-      src: "/foto-1.jpg",
-      alt: "Foto Jason saat presentasi",
-      title: "Presentasi Proyek",
-      description: "Foto saat Jason mempresentasikan proyeknya di acara teknologi.",
+      title: "Workshop & Tech Talk",
+      date: "November 2025",
+      image: "/kegiatan2.jpg"
     },
     {
-      src: "/foto-2.jpg",
-      alt: "Foto Jason dengan tim",
-      title: "Kolaborasi Tim",
-      description: "Foto saat Jason bekerja sama dengan timnya dalam sebuah proyek.",
+      title: "Pengabdian Kepada Masyarakat",
+      date: "Februari 2026",
+      image: "/kegiatan3.jpg"
     },
     {
-      src: "/foto-3.jpg",
-      alt: "Foto Jason dalam acara teknologi",
-      title: "Acara Teknologi",
-      description: "Foto saat Jason menghadiri acara teknologi dan bertukar pikiran dengan ahli di bidangnya.",
-    },
+      title: "Rapat Kerja Tahunan",
+      date: "Mei 2026",
+      image: "/kegiatan4.jpg"
+    }
   ];
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 px-6 pb-12 flex flex-col items-center">
+    <main className="min-h-screen bg-slate-950 text-slate-100 pt-32 px-6 pb-24 flex flex-col items-center">
       <div className="max-w-4xl w-full z-10">
         
-        {/* Profile Section */}
+        {/* ==========================================================
+            1. PROFILE SECTION
+           ========================================================== */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-20 w-full flex flex-col items-center"
+          className="w-full flex flex-col items-center mb-16"
         >
-          <div className="flex flex-col items-center bg-slate-900/40 border border-slate-800 p-8 rounded-3xl hover:border-teal-500/50 hover:bg-slate-800/50 transition-all duration-300 group w-full max-w-sm shadow-xl shadow-teal-900/10">
+          <div className="flex flex-col items-center bg-slate-900/40 border border-slate-800 p-8 rounded-3xl hover:border-teal-500/50 hover:bg-slate-800/50 transition-all duration-300 group w-full max-sm shadow-xl shadow-teal-900/10">
             <div className="w-32 h-32 mb-6 rounded-full bg-slate-950 border-2 border-slate-700 group-hover:border-teal-400 flex items-center justify-center overflow-hidden transition-colors">
               {profileData.photo ? (
                 <img src={profileData.photo} alt={profileData.name} className="w-full h-full object-cover" />
@@ -88,49 +103,92 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Header Section: About Me */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
-            <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-              About Me
-            </span>
-          </h2>
-          <p className="text-lg md:text-xl font-mono text-teal-400 italic mb-8">
-            &quot;Learning, Creating, and Innovating Through Technology.&quot;
-          </p>
-        </motion.div>
+        {/* ==========================================================
+            2. ABOUT ME SECTION
+           ========================================================== */}
+        <div className="w-full"> 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-6" 
+          >
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white text-left">
+              <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
+                About Me
+              </span>
+            </h2>
+          </motion.div>
 
-        {/* Deskripsi Pribadi */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mx-auto max-w-3xl"
-        >
-          <AccordionText items={aboutItems} />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
+          >
+            <p>
+              Himpunan Mahasiswa Teknik Informatika (HIMATIF) Universitas Widyatama merupakan organisasi kemahasiswaan intra-kampus yang berfungsi sebagai wadah utama untuk menampung aspirasi, mengasah kreativitas, serta mengembangkan potensi akademis dan non-akademis seluruh mahasiswa program studi Teknik Informatika di Universitas Widyatama.
+            </p>
+            <p>
+              Didirikan dengan semangat kolaborasi dan inovasi di bidang teknologi, HIMATIF berkomitmen untuk menciptakan ekosistem mahasiswa yang unggul, adaptif terhadap perkembangan industri global, serta mampu memberikan kontribusi nyata melalui penerapan Tri Dharma Perguruan Tinggi.
+            </p>
+          </motion.div>
+        </div>
 
-        {/* Carousel Foto */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mx-auto mt-12 max-w-3xl"
-        >
-          <PhotoCarousel photos={profilePhotos} />
-        </motion.section>
+        {/* ==========================================================
+            3. LOCATION SECTION
+           ========================================================== */}
+        <div className="w-full pt-32"> 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-6"
+          >
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white text-left">
+              <span className="bg-linear-to-r from-teal-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
+                Our Location
+              </span>
+            </h2>
+          </motion.div>
 
-        {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base text-justify"
+          >
+            <p>
+              Sekretariat HIMATIF Universitas Widyatama berlokasi secara strategis di dalam area kampus utama guna mempermudah akses koordinasi bagi seluruh pengurus dan mahasiswa Teknik Informatika. Tempat ini menjadi titik pusat dari perancangan seluruh program kerja serta wadah diskusi harian.
+            </p>
+            <div className="flex gap-4 p-6 bg-slate-900/30 border border-slate-800 rounded-2xl items-start max-w-2xl shadow-md mt-4">
+              <MapPin className="text-teal-400 shrink-0 mt-1" size={20} />
+              <div className="text-left space-y-1">
+                <p className="font-bold text-slate-100">Gedung Pusat Kegiatan Mahasiswa (PKM) Lt. 2</p>
+                <p className="text-sm text-slate-400 leading-relaxed">Jl. Cikutra No. 204A, Sukapada, Kec. Cibeunying Kidul, Kota Bandung, Jawa Barat 40124</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ==========================================================
+            4. CONCENTRATION SECTION
+           ========================================================== */}
+        <ConcentrationSection concentrations={concentrations} />
+
+        {/* ==========================================================
+            5. NEW: OUR ACTIVITIES SECTION
+           ========================================================== */}
+        <ActivitySection activities={activities} />
+
+        {/* ==========================================================
+            6. CTA BUTTON SECTION
+           ========================================================== */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-16 flex justify-center"
+          className="flex justify-center pt-24"
         >
           <Link href="/projects">
             <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-teal-500/30 text-sm font-medium transition-all hover:scale-105 active:scale-95 group cursor-pointer shadow-lg">
