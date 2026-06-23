@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "displayName": "Admin SBO",
+    "role": "admin",
+    "passwordHash": "$2b$10$J.jWZacz4/8SfEdSHZydxe6aCDn22OPu9pDbgYtywtVi1Jtlrjm/e"
+  },
+  {
+    "id": 2,
+    "username": "guest",
+    "displayName": "Guest SBO",
+    "role": "guest",
+    "passwordHash": "$2b$10$LzrCh/rztl87owT5zbrfBOmGSnPjnji23ezv0z4L5ENv4f7tGA8zC"
+  }
+]
