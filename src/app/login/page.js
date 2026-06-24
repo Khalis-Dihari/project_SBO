@@ -3,25 +3,24 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Lock, User, ArrowRight } from 'lucide-react';
+import { Lock, User, ArrowRight, Eye } from 'lucide-react';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const loginUser = async (credentials) => {
     setError('');
 
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify(credentials),
       });
 
       const data = await res.json();
@@ -34,8 +33,27 @@ export default function Login() {
       }
     } catch (err) {
       setError('Terjadi kesalahan jaringan');
+    }
+  };
+
+  const handleAdminSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await loginUser({ username, password });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    setGuestLoading(true);
+
+    try {
+      await loginUser({ username: 'guest', password: 'guest' });
+    } finally {
+      setGuestLoading(false);
     }
   };
 
@@ -56,10 +74,10 @@ export default function Login() {
             Welcome Back
           </h2>
           <p className="text-sm text-slate-400 mt-2">Log in to view the group portfolio</p>
-          <p className="text-xs text-teal-500/80 font-mono mt-1">Hint: admin / admin</p>
+          <p className="text-xs text-teal-500/80 font-mono mt-1">Admin: admin / admin</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleAdminSubmit} className="space-y-5">
           <div className="relative">
             <User className="absolute left-4 top-3.5 text-slate-500" size={18} />
             <input 
@@ -99,6 +117,18 @@ export default function Login() {
             {!loading && <ArrowRight size={16} />}
           </button>
         </form>
+
+        <div className="mt-5 flex justify-center">
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            disabled={guestLoading || loading}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-950/40 px-4 py-2 text-xs font-medium text-slate-400 transition-colors hover:border-teal-500/40 hover:text-teal-300 disabled:opacity-50"
+          >
+            <Eye size={14} />
+            <span>{guestLoading ? 'Masuk...' : 'Masuk sebagai tamu'}</span>
+          </button>
+        </div>
       </motion.div>
     </div>
   );

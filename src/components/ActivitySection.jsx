@@ -14,7 +14,7 @@ function getActivitySlug(title) {
   return "rapat";
 }
 
-export default function ActivitySection({ activities }) {
+export default function ActivitySection({ activities, pictures = [] }) {
   return (
     <div className="w-full pt-32">
       <motion.div
@@ -42,7 +42,9 @@ export default function ActivitySection({ activities }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
           {activities.map((activity) => {
-            const slug = getActivitySlug(activity.title);
+            const slug = activity.slug || getActivitySlug(activity.title);
+            const relatedPictures = pictures.filter((picture) => picture.category === slug);
+            const previewImage = relatedPictures[0]?.url || activity.image;
 
             return (
               <Link
@@ -51,9 +53,23 @@ export default function ActivitySection({ activities }) {
                 className="group relative overflow-hidden bg-slate-900/40 border border-slate-800/80 rounded-2xl shadow-lg transition-all duration-300 hover:border-teal-500/30 flex flex-col cursor-pointer"
               >
                 <div className="w-full aspect-video bg-slate-950 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-slate-900 flex items-center justify-center text-slate-600 font-mono text-xs group-hover:scale-105 transition-transform duration-500">
-                    [ Tempat Foto: {activity.title} ]
-                  </div>
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      alt={activity.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-slate-900 flex items-center justify-center text-slate-600 font-mono text-xs group-hover:scale-105 transition-transform duration-500">
+                      [ Tempat Foto: {activity.title} ]
+                    </div>
+                  )}
+
+                  {relatedPictures.length > 0 && (
+                    <div className="absolute bottom-3 right-3 rounded-full border border-slate-700 bg-slate-950/80 px-2.5 py-1 text-[10px] font-mono text-teal-300 backdrop-blur">
+                      {relatedPictures.length} foto
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-4 bg-slate-900/20 border-t border-slate-800/50 text-left">

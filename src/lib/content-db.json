@@ -1,0 +1,123 @@
+{
+  "home": {
+    "profile": {
+      "name": "Jason",
+      "role": "Lead Software Engineer / Network Architect",
+      "nim": "NIM: 23061100",
+      "photo": "/jason.jpg"
+    },
+    "about": {
+      "title": "About Me",
+      "paragraphs": [
+        "Himpunan Mahasiswa Teknik Informatika (HIMATIF) Universitas Widyatama merupakan organisasi kemahasiswaan intra-kampus yang berfungsi sebagai wadah utama untuk menampung aspirasi, mengasah kreativitas, serta mengembangkan potensi akademis dan non-akademis seluruh mahasiswa program studi Teknik Informatika di Universitas Widyatama.",
+        "Didirikan dengan semangat kolaborasi dan inovasi di bidang teknologi, HIMATIF berkomitmen untuk menciptakan ekosistem mahasiswa yang unggul, adaptif terhadap perkembangan industri global, serta mampu memberikan kontribusi nyata melalui penerapan Tri Dharma Perguruan Tinggi."
+      ]
+    },
+    "location": {
+      "title": "Our Location",
+      "description": "Sekretariat HIMATIF Universitas Widyatama berlokasi secara strategis di dalam area kampus utama guna mempermudah akses koordinasi bagi seluruh pengurus dan mahasiswa Teknik Informatika. Tempat ini menjadi titik pusat dari perancangan seluruh program kerja serta wadah diskusi harian.",
+      "place": "Gedung Pusat Kegiatan Mahasiswa (PKM) Lt. 2",
+      "address": "Jl. Cikutra No. 204A, Sukapada, Kec. Cibeunying Kidul, Kota Bandung, Jawa Barat 40124"
+    },
+    "activities": [
+      {
+        "id": 1,
+        "title": "Malam Keakraban (Makrab)",
+        "date": "September 2025",
+        "image": "",
+        "slug": "makrab"
+      },
+      {
+        "id": 2,
+        "title": "Workshop & Tech Talk",
+        "date": "November 2025",
+        "image": "",
+        "slug": "workshop"
+      },
+      {
+        "id": 3,
+        "title": "Pengabdian Kepada Masyarakat",
+        "date": "Februari 2026",
+        "image": "",
+        "slug": "pengabdian"
+      },
+      {
+        "id": 4,
+        "title": "Rapat Kerja Tahunan",
+        "date": "Mei 2026",
+        "image": "",
+        "slug": "rapat"
+      },
+      {
+        "id": 5,
+        "title": "Makan makan",
+        "date": "Januari 2029",
+        "image": "",
+        "slug": "kegiatan-5"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Sistem Manajemen Keuangan",
+      "desc": "Aplikasi berbasis web untuk mencatat dan menganalisis arus kas keuangan secara real-time dengan grafik interaktif.",
+      "category": "Web App",
+      "tech": [
+        "Next.js",
+        "Tailwind CSS",
+        "Node.js"
+      ],
+      "image": ""
+    },
+    {
+      "id": 2,
+      "title": "Analisis Data E-Commerce",
+      "desc": "Menganalisis tren penjualan dan perilaku pelanggan menggunakan dataset e-commerce untuk optimasi strategi marketing.",
+      "category": "Data Science",
+      "tech": [
+        "Python",
+        "Pandas",
+        "Jupyter"
+      ],
+      "image": ""
+    }
+  ],
+  "pictures": [
+    {
+      "id": 1,
+      "title": "Team Working Session (Makrab)",
+      "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600",
+      "size": "col-span-1",
+      "category": "makrab"
+    },
+    {
+      "id": 2,
+      "title": "SCRUM Sprint Planning (Workshop)",
+      "url": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600",
+      "size": "col-span-1",
+      "category": "workshop"
+    },
+    {
+      "id": 3,
+      "title": "Project Overview Showcase (Pengabdian)",
+      "url": "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=600",
+      "size": "md:col-span-2",
+      "category": "pengabdian"
+    },
+    {
+      "id": 4,
+      "title": "Rapat Kerja Tahunan HIMATIF",
+      "url": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
+      "size": "md:col-span-2",
+      "category": "rapat"
+    },
+    {
+      "id": 5,
+      "title": "Foto Baru",
+      "url": "/foto-1.jpg",
+      "size": "col-span-1",
+      "category": "makrab"
+    }
+  ]
+}
