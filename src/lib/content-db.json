@@ -47,6 +47,13 @@
         "date": "Mei 2026",
         "image": "",
         "slug": "rapat"
+      },
+      {
+        "id": 5,
+        "title": "Makan makan",
+        "date": "Januari 2029",
+        "image": "",
+        "slug": "kegiatan-5"
       }
     ]
   },
@@ -104,6 +111,13 @@
       "url": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600",
       "size": "md:col-span-2",
       "category": "rapat"
+    },
+    {
+      "id": 5,
+      "title": "Foto Baru",
+      "url": "/foto-1.jpg",
+      "size": "col-span-1",
+      "category": "makrab"
     }
   ]
 }
